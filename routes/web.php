@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +27,11 @@ Route::post('/send-otp', [UserController::class, 'sentOTPCode']);
 Route::post('/verify-otp', [UserController::class, 'verifyOTP']);
 
 Route::post('/reset-password', [UserController::class, 'ResetPassword'])->middleware([TokenVerificationMiddleware::class]);
+
+//Order
+Route::post('/orders', [OrderController::class, 'store'])->middleware([TokenVerificationMiddleware::class]);
+
+
+// services & packages
+Route::get('/services', [ServiceController::class, 'index'])->middleware([TokenVerificationMiddleware::class]);
+Route::get('/packages', [PackageController::class, 'index'])->middleware([TokenVerificationMiddleware::class]);
